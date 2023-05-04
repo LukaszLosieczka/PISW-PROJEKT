@@ -1,0 +1,16 @@
+<article class="m-3">
+  <h2>List of all books</h2>
+  <section class="d-flex flex-column gap-2">
+    <div *ngFor="let book of books" class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ book.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+        <p class="card-text">
+          {{ book.description }}
+        </p>
+        <a [routerLink]="[book.id, 'edit']" class="card-link">Edit</a>
+        <a [routerLink]="[book.id, 'reviews']" class="card-link">Reviews</a>
+      </div>
+    </div>
+  </section>
+</article>
