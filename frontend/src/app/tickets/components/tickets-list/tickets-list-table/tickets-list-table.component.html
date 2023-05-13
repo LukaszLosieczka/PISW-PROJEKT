@@ -1,0 +1,40 @@
+<table class="table" id="tickets">
+  <thead class="bg-secondary">
+  <tr>
+    <th>Typ</th>
+    <th>Opis</th>
+    <th>Cena</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="text-center bg-light fw-bold" colspan="4">Bilety jednorazowe</td>
+  </tr>
+  <tr *ngFor="let ticket of getSingleTickets()">
+    <td> {{ticket.name}}</td>
+    <td> {{ticket.description}}</td>
+    <td> {{ticket.price}} zł</td>
+    <td class="text-center"> <button type="button" class="btn btn-primary">Kup bilet</button></td>
+  </tr>
+  <tr>
+    <td class="text-center bg-light fw-bold" colspan="4">Bilety czasowe</td>
+  </tr>
+  <tr *ngFor="let ticket of getTimeTickets()">
+    <td> {{ticket.name}}</td>
+    <td> {{ticket.description}}</td>
+    <td> {{ticket.price}} zł</td>
+    <td class="text-center"> <button type="button" class="btn btn-primary">Kup bilet</button></td>
+  </tr>
+  <tr>
+    <td class="text-center bg-light fw-bold" colspan="4">Bilety okresowe</td>
+  </tr>
+  <tr *ngFor="let ticket of getSeasonTickets()">
+    <td> {{ticket.name}}</td>
+    <td> {{ticket.description}}</td>
+    <td> {{ticket.price}} zł</td>
+    <td class="text-center"> <button type="button" class="btn btn-primary">Kup bilet</button></td>
+  </tr >
+  </tbody>
+</table>
+

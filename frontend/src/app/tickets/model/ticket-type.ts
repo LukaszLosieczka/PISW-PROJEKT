@@ -1,5 +1,5 @@
 export enum TicketType {
-  Season,
-  Time,
-  Single
+  Season = "season",
+  Time = "time",
+  Single= "single"
 }

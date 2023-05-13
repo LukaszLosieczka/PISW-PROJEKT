@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookListComponent } from "./books/components/book-list/book-list.component";
-import { BookListResolver } from "./books/resolvers/book-list.resolver";
+import {TicketsListComponent} from "./tickets/components/tickets-list/tickets-list.component";
+import {TicketsListResolver} from "./tickets/resolvers/tickets-list.resolver";
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/books'
+    redirectTo: '/tickets'
   },
   {
-    path: 'books',
-    component: BookListComponent,
+    path: 'tickets',
+    component: TicketsListComponent,
     resolve: {
-      books: BookListResolver
+      tickets: TicketsListResolver
     }
   }
 ];
