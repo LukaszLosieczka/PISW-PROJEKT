@@ -9,7 +9,7 @@ import {TicketType} from "../../../model/ticket-type";
 })
 export class TicketsListTableComponent implements OnInit {
 
-  @Input() tickets: Ticket[]
+  @Input() tickets: Ticket[] = []
 
   constructor() { }
 
