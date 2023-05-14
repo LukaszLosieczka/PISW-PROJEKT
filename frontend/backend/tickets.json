@@ -30,5 +30,10 @@
     {"id": 9, "name": "roczny", "description": "wszystkie linie", "price": 1010.55, "type": "season",
       "validityPeriod": 31104000
     }
+  ],
+  "discounts": [
+    {"id": 1, "name": "studencka 50%", "discountPercent": 50},
+    {"id": 2, "name": "seniorska 75%", "discountPercent": 75},
+    {"id": 3, "name": "uczniowska 100%", "discountPercent": 100}
   ]
 }

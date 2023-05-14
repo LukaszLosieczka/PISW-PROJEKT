@@ -15,7 +15,7 @@
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
     <td> {{ticket.price}} zł</td>
-    <td class="text-center"> <button type="button" class="btn btn-primary">Kup bilet</button></td>
+    <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
   </tr>
   <tr>
     <td class="text-center bg-light fw-bold" colspan="4">Bilety czasowe</td>
@@ -24,7 +24,7 @@
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
     <td> {{ticket.price}} zł</td>
-    <td class="text-center"> <button type="button" class="btn btn-primary">Kup bilet</button></td>
+    <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
   </tr>
   <tr>
     <td class="text-center bg-light fw-bold" colspan="4">Bilety okresowe</td>
@@ -33,7 +33,7 @@
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
     <td> {{ticket.price}} zł</td>
-    <td class="text-center"> <button type="button" class="btn btn-primary">Kup bilet</button></td>
+    <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
   </tr >
   </tbody>
 </table>

@@ -15,4 +15,8 @@ export class TicketService {
   getAllTickets(): Observable<Ticket[]>{
     return this.http.get<Ticket[]>(ticketsApiPrefix);
   }
+
+  getTicket(id: number): Observable<Ticket>{
+    return this.http.get<Ticket>(`${ticketsApiPrefix}/${id}`);
+  }
 }
