@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../shared/services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'bs-register',
@@ -17,7 +19,7 @@ export class RegisterComponent implements OnInit {
   username = "";
   password = "";
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -36,6 +38,10 @@ export class RegisterComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+
+    this.userService.register();
+
+    this.router.navigate(['/login']);
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../shared/services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'bs-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
   username = "";
   password = "";
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -31,6 +33,10 @@ export class LoginComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+
+    this.userService.logIn(this.username, this.password);
+
+    this.router.navigate(['/']);
   }
 
 }

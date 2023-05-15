@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../shared/services/user.service";
 
 @Component({
   selector: 'bs-navbar',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+  }
+
+  isLoggedIn(): boolean{
+    return this.userService.isLoggedIn;
+  }
+
+  logout(): void{
+    this.userService.logout();
   }
 
 }
