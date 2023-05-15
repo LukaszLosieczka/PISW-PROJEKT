@@ -1,5 +1,8 @@
-<a class="btn btn-lg btn-primary m-3" [routerLink]="['/tickets']" >Strona główna</a>
+<div class="bg-secondary bg-opacity-10 min-vh-100">
+  <a class="btn btn-lg btn-primary m-3" [routerLink]="['/tickets']" >Strona główna</a>
 
-<div class="container col-md-5 mt-5">
-  <router-outlet></router-outlet>
+  <div class="container col-md-5 mt-5">
+    <h1 class="text-center m-5 display-1">Tickets</h1>
+    <router-outlet></router-outlet>
+  </div>
 </div>
