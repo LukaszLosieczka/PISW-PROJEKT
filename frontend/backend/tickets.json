@@ -1,0 +1,34 @@
+{
+  "tickets": [
+    {"id": 1, "name": "jednorazowy", "description": "wszystkie linie", "price": 2.30, "type": "single",
+      "validityPeriod": 0
+    },
+    {"id": 2, "name": "15-minutowy", "description": "wszystkie linie", "price": 1.60, "type": "time",
+      "validityPeriod": 900
+    },
+    {"id": 3, "name": "30-minutowy", "description": "wszystkie linie", "price": 2.70, "type": "time",
+      "validityPeriod": 1800
+    },
+    {"id": 4, "name": "godzinny", "description": "wszystkie linie", "price": 5.15, "type": "time",
+      "validityPeriod": 3600
+    },
+    {"id": 5, "name": "2-godzinny", "description": "wszystkie linie", "price": 9.80, "type": "time",
+      "validityPeriod": 7200
+    },
+    {"id": 6, "name": "miesięczny", "description": "wszystkie linie", "price": 110.50, "type": "season",
+      "validityPeriod": 2592000
+    },
+
+    {"id": 7, "name": "3-misięczny", "description": "wszystkie linie", "price": 310.20, "type": "season",
+      "validityPeriod": 7776000
+    },
+
+    {"id": 8, "name": "6-miesięczny", "description": "wszystkie linie", "price": 610.15, "type": "season",
+      "validityPeriod": 15552000
+    },
+
+    {"id": 9, "name": "roczny", "description": "wszystkie linie", "price": 1010.55, "type": "season",
+      "validityPeriod": 31104000
+    }
+  ]
+}
