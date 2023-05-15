@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand bg-primary">
+  <a class="navbar-brand mx-2" ><h1 class="text-light">Tickets</h1></a>
+  <ul class="navbar-nav me-auto">
+    <li class="nav-item">
+      <a [routerLink]="['/tickets']" class="nav-link text-light" >Lista biletów</a>
+    </li>
+    <li class="nav-item">
+      <a [routerLink]="['/']" class="nav-link text-light">Moje bilety</a>
+    </li>
+    <li class="nav-item">
+      <a [routerLink]="['/']" class="nav-link text-light">Skontroluj bilet</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav me-2">
+    <li>
+      <div class="btn-nav"><a [routerLink]="['/login']" class="btn btn-link btn-small navbar-btn text-light">Zaloguj się</a>
+      </div>
+    </li>
+    <li>
+      <div class="btn-nav"><a [routerLink]="['/register']" class="btn btn-light btn-small navbar-btn">Zarejestruj się</a>
+      </div>
+    </li>
+  </ul>
+</nav>
