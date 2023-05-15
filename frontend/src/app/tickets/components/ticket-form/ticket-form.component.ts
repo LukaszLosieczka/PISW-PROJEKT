@@ -25,11 +25,6 @@ export class TicketFormComponent implements OnInit {
     this.discounts = this.activatedRoute.snapshot.data['discounts'];
   }
 
-  changeDiscount(): Discount{
-    const found = this.discounts.find(discount => discount.discountPercent === 0)
-    return found ? found : this.discounts[0];
-  }
-
   calculatePrice(): number{
     let price = this.ticket.price;
     if(this.chosenDiscount !== null){
