@@ -9,6 +9,8 @@ import {RouterModule} from "@angular/router";
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
 import { LoginLayoutComponent } from './layouts/login-layout/login-layout.component';
+import {CommonModule} from "@angular/common";
+import {UserModule} from "./user/user.module";
 
 @NgModule({
   declarations: [
@@ -18,8 +20,10 @@ import { LoginLayoutComponent } from './layouts/login-layout/login-layout.compon
     LoginLayoutComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     TicketsModule,
+    UserModule,
     AppRoutingModule,
     HttpClientModule,
     RouterModule
