@@ -1,0 +1,46 @@
+<div class="text-center my-5" id="list-title"><h2>Kup bilet</h2></div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" id="form" class="container">
+  <div class="form-group row justify-content-center">
+    <label for="name" class="col-sm-2 col-form-label-lg fw-bold">Nazwa:</label>
+    <div class="col-sm-5">
+      <input type="text" readonly class="form-control-plaintext form-control-lg" id="name" value="{{ticket.name.toUpperCase()}}">
+    </div>
+  </div>
+  <div class="form-group row mt-3 justify-content-center">
+    <label for="description" class="col-sm-2 col-form-label-lg fw-bold">Opis:</label>
+    <div class="col-sm-5">
+      <input type="text" readonly class="form-control-plaintext form-control-lg" id="description" value="{{ticket.description.toUpperCase()}}">
+    </div>
+  </div>
+  <div class="form-group row mt-3 justify-content-center">
+    <label for="quantity" class="col-sm-2 col-form-label-lg fw-bold">Ilość:</label>
+    <div class="col-sm-5">
+      <input type="number" min="1" class="form-control form-control-lg" id="quantity" formControlName="quantity" [(ngModel)]="ticketsQuantity">
+    </div>
+  </div>
+  <div class="form-group row mt-3 justify-content-center">
+    <label for="discount" class="col-sm-2 col-form-label-lg fw-bold">Zniżka:</label>
+    <div class="col-sm-5">
+      <select id="discount" class="form-control form-control-lg" formControlName="discount" [(ngModel)]="chosenDiscount">
+        <option [ngValue]="null">Brak</option>
+        <option *ngFor="let discount of discounts" [ngValue]="discount">{{discount.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row mt-3 justify-content-center">
+    <label for="price" class="col-sm-2 col-form-label-lg fw-bold">Cena:</label>
+    <div class="col-sm-5">
+      <div class="input-group">
+        <input type="text" readonly class="form-control form-control-lg" id="price" formControlName="price" [(ngModel)]="fullPrice">
+        <span class="input-group-text" id="unit">zł</span>
+      </div>
+
+    </div>
+  </div>
+  <div class="form-group row justify-content-center">
+    <div class="col-sm-7 my-5">
+      <button type="submit" class="btn btn-primary btn-lg">Kup teraz</button>
+    </div>
+  </div>
+</form>
