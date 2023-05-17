@@ -9,6 +9,9 @@ import {HomeLayoutComponent} from "./layouts/home-layout/home-layout.component";
 import {LoginLayoutComponent} from "./layouts/login-layout/login-layout.component";
 import {LoginComponent} from "./user/components/login/login.component";
 import {RegisterComponent} from "./user/components/register/register.component";
+import {MyTicketsComponent} from "./tickets/components/my-tickets/my-tickets.component";
+import {MyTicketsResolver} from "./tickets/resolvers/my-tickets.resolver";
+import {TicketControlComponent} from "./tickets/components/ticket-control/ticket-control.component";
 
 const routes: Routes = [
   {
@@ -35,6 +38,14 @@ const routes: Routes = [
           ticket: TicketFormResolver,
           discounts: DiscountsResolver
         }
+      },
+      {
+        path: 'my-tickets',
+        component: MyTicketsComponent
+      },
+      {
+        path: 'ticket-control',
+        component: TicketControlComponent
       }
     ]
   },

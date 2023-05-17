@@ -2,7 +2,7 @@
 
 <div class="text-center my-5" id="list-title"><h2>Kup bilet</h2></div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()" id="form" class="container">
+<form [formGroup]="form" id="form" class="container">
   <div class="form-group row justify-content-center">
     <label for="name" class="col-sm-2 col-form-label-lg fw-bold">Nazwa:</label>
     <div class="col-sm-5">
@@ -42,7 +42,7 @@
   </div>
   <div class="form-group row justify-content-center">
     <div class="col-sm-7 my-5">
-      <button type="submit" class="btn btn-primary btn-lg">Kup teraz</button>
+      <button [routerLink]="['/my-tickets']" type="submit" class="btn btn-primary btn-lg" (click)="onBuyNow()">Kup teraz</button>
     </div>
   </div>
 </form>

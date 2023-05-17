@@ -3,6 +3,7 @@ import {Ticket} from "../../model/ticket";
 import {Discount} from "../../model/discount";
 import {ActivatedRoute} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../shared/services/user.service";
 
 @Component({
   selector: 'bs-ticket-form',
@@ -16,11 +17,11 @@ export class TicketFormComponent implements OnInit {
   readonly ticket: Ticket;
   readonly discounts: Discount[];
 
-  ticketsQuantity: number;
+  ticketsQuantity: number = 1;
   chosenDiscount: Discount | null;
   fullPrice: number;
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService) {
     this.ticket = this.activatedRoute.snapshot.data['ticket'];
     this.discounts = this.activatedRoute.snapshot.data['discounts'];
   }
@@ -31,9 +32,6 @@ export class TicketFormComponent implements OnInit {
       price -= (this.chosenDiscount.discountPercent/100 * this.ticket.price)
     }
     return price * this.ticketsQuantity;
-  }
-
-  onSubmit(): void{
   }
 
   ngOnInit(): void {
@@ -62,6 +60,13 @@ export class TicketFormComponent implements OnInit {
   onQuantityChange(quantity: number): void{
     this.ticketsQuantity = quantity;
     this.fullPrice = Math.round(this.calculatePrice()*100)/100;
+  }
+
+  onBuyNow(): void {
+    this.userService.Ticket = this.ticket;
+    this.userService.Discount = this.chosenDiscount;
+    this.userService.Quantity = this.ticketsQuantity;
+    this.userService.addNewTickets();
   }
 
 }

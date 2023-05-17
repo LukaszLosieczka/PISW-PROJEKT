@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Ticket} from "../../../model/ticket";
 import {TicketType} from "../../../model/ticket-type";
+import {UserService} from "../../../../shared/services/user.service";
 
 @Component({
   selector: 'bs-tickets-list-table',
@@ -11,7 +12,7 @@ export class TicketsListTableComponent implements OnInit {
 
   @Input() tickets: Ticket[] = []
 
-  constructor() { }
+  constructor(public userService: UserService) { }
 
   ngOnInit(): void {
   }

@@ -1,0 +1,38 @@
+<div class="container shadow-lg p-3 mb-5 bg-white rounded my-5">
+  <div class="text-center my-5" id="list-title">
+    <h2>Skontroluj bilet</h2>
+  </div>
+
+  <form [formGroup]="form" id="form" class="container">
+    <div class="form-group row mt-3 justify-content-center">
+      <label class="col-sm-2 col-form-label-lg fw-bold">Kod biletu:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" formControlName="code" [ngClass]="{ 'is-invalid': submitted && f.code.errors }">
+        <div *ngIf="submitted && f.code.errors" class="invalid-feedback">
+          <div *ngIf="f.code.errors.required">Kod biletu jest obowiązkowy</div>
+          <div *ngIf="f.code.errors.min">Kod biletu powinien być 6 cyfrowy</div>
+          <div *ngIf="f.code.errors.max">Kod biletu powinien być 6 cyfrowy</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row mt-3 justify-content-center">
+      <label class="col-sm-2 col-form-label-lg fw-bold">Identyfikator pojazdu:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" formControlName="vehicle" [ngClass]="{ 'is-invalid': submitted && f.vehicle.errors }">
+        <div *ngIf="submitted && f.vehicle.errors" class="invalid-feedback">
+          <div *ngIf="f.vehicle.errors.required">Identyfikator pojazdu jest obowiązkowy</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <div class="col-sm-7 my-5">
+        <button class="btn btn-primary btn-lg" (click)="onControlTicket()">Skontroluj</button>
+      </div>
+    </div>
+    <div *ngIf="submitted && form.valid && ticketValidationMessage" class="form-group row justify-content-center">
+      <div class="col-sm-7">
+        <p class="validation-message">{{ticketValidationMessage}}</p>
+      </div>
+    </div>
+  </form>
+</div>
