@@ -11,23 +11,23 @@
   </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let ticket of getUserTickets()">
-      <tr>
-        <td>{{ticket.code}}</td>
-        <td>{{ticket.ticket.name}}</td>
-        <td>{{(ticket.ticket.price * (1.0 - ticket.discount / 100)).toFixed(2)}} zł</td>
-        <td>{{ticket.discount}}%</td>
-        <td>{{ticket.purchase_time}}</td>
-        <td>
-          <ng-container *ngIf="ticket.ticket.type === 'single' || ticket.ticket.type === 'time'; else season">
-            Nie
-          </ng-container>
-          <ng-template #season>
-            Nie dotyczy
-          </ng-template>
-        </td>
-      </tr>
+  <ng-container *ngFor="let userTicket of getUserTickets()">
+  <tr>
+    <td>{{userTicket.code}}</td>
+    <td>{{userTicket.ticket.name}}</td>
+    <td>{{(userTicket.ticket.price * (1.0 - userTicket.discount / 100)).toFixed(2)}} zł</td>
+    <td>{{userTicket.discount}}%</td>
+    <td>{{userTicket.purchase_time}}</td>
+    <td>
+    <ng-container *ngIf="userTicket.ticket.type === 'single' || userTicket.ticket.type === 'time'; else season">
+      Nie
     </ng-container>
+    <ng-template #season>
+      Nie dotyczy
+    </ng-template>
+    </td>
+  </tr>
+  </ng-container>
   </tbody>
 </table>
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Ticket} from "../../../model/ticket";
 import {TicketType} from "../../../model/ticket-type";
 import {UserService} from "../../../../shared/services/user.service";
@@ -8,26 +8,22 @@ import {UserService} from "../../../../shared/services/user.service";
   templateUrl: './tickets-list-table.component.html',
   styleUrls: ['./tickets-list-table.component.scss']
 })
-export class TicketsListTableComponent implements OnInit {
+export class TicketsListTableComponent {
 
   @Input() tickets: Ticket[] = []
 
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) {}
 
-  ngOnInit(): void {
-  }
-
-  getSingleTickets(): Ticket[]{
+  getSingleTickets(): Ticket[] {
     return this.tickets.filter(t => t.type === TicketType.Single);
   }
 
-  getSeasonTickets(): Ticket[]{
+  getSeasonTickets(): Ticket[] {
     return this.tickets.filter(t => t.type === TicketType.Season);
   }
 
-  getTimeTickets(): Ticket[]{
+  getTimeTickets(): Ticket[] {
     return this.tickets.filter(t => t.type === TicketType.Time);
   }
-
 
 }

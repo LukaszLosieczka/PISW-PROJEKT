@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {UserService} from "../../../shared/services/user.service";
 import {UserTicket} from "../../model/user-ticket";
+import {UserTicketService} from "../../services/user-ticket.service";
 
 @Component({
   selector: 'bs-my-tickets',
@@ -11,8 +11,8 @@ export class MyTicketsComponent {
 
   userTickets: UserTicket[] = [];
 
-  constructor(private userService: UserService) {
-    this.userTickets = this.userService.userTickets;
+  constructor(private userTicketService: UserTicketService) {
+    this.userTickets = this.userTicketService.userTickets;
   }
 
 }

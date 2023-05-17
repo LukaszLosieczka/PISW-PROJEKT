@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {UserTicket} from "../../../model/user-ticket";
 
 @Component({
@@ -6,13 +6,11 @@ import {UserTicket} from "../../../model/user-ticket";
   templateUrl: './my-tickets-history.component.html',
   styleUrls: ['./my-tickets-history.component.scss']
 })
-export class MyTicketsHistoryComponent implements OnInit {
+export class MyTicketsHistoryComponent {
 
   @Input() userTickets: UserTicket[] = [];
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   getUserHistoryTickets(): UserTicket[] {
     return this.userTickets.filter(ticket => ticket.validation !== null);

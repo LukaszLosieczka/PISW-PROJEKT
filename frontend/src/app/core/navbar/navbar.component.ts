@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../shared/services/user.service";
 
 @Component({
@@ -8,16 +8,15 @@ import {UserService} from "../../shared/services/user.service";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  isLoggedIn(): boolean{
+  isLoggedIn(): boolean {
     return this.userService.isLoggedIn;
   }
 
-  logout(): void{
+  logout(): void {
     this.userService.logout();
   }
 

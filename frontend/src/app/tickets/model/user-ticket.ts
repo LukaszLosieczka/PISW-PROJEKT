@@ -6,5 +6,5 @@ export interface UserTicket {
   discount: number
   validation: Validation | null
   purchase_time: string
-  quantity: number | null
+  quantity: number
 }

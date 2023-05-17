@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {UserTicket} from "../../../model/user-ticket";
 
 @Component({
@@ -6,13 +6,11 @@ import {UserTicket} from "../../../model/user-ticket";
   templateUrl: './my-tickets-table.component.html',
   styleUrls: ['./my-tickets-table.component.scss']
 })
-export class MyTicketsTableComponent implements OnInit {
+export class MyTicketsTableComponent {
 
   @Input() userTickets: UserTicket[] = [];
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   getUserTickets(): UserTicket[] {
     return this.userTickets.filter(ticket => ticket.validation === null);

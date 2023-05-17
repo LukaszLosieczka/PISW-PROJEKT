@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserTicket } from '../../model/user-ticket';
-import { UserService } from '../../../shared/services/user.service';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserTicket} from '../../model/user-ticket';
+import {UserTicketService} from "../../services/user-ticket.service";
 
 @Component({
   selector: 'bs-ticket-validation',
@@ -10,96 +10,109 @@ import { UserService } from '../../../shared/services/user.service';
 })
 export class TicketControlComponent implements OnInit {
   form: FormGroup;
-  ticket: UserTicket;
-  ticketCode: number;
-  vehicleId: number;
-  ticketValidationMessage: string;
-  submitted = false;
-  constructor(private userService: UserService) {}
+  userTicket: UserTicket;
+  userTicketCode: number;
+  userTicketVehicle: number;
+  userTicketValidationMessage: string;
+  isSubmitted = false;
+
+  constructor(private userTicketService: UserTicketService) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      code: new FormControl(this.ticketCode, [
+      code: new FormControl(this.userTicketCode, [
         Validators.required,
         Validators.min(100000),
         Validators.max(999999)
       ]),
-      vehicle: new FormControl(this.vehicleId, [Validators.required])
+      vehicle: new FormControl(this.userTicketVehicle, [
+        Validators.required,
+        Validators.min(1000),
+        Validators.max(9999)
+      ])
     });
 
-    this.form.get('code')?.valueChanges.subscribe((v) => {
+    this.form.get('code')?.valueChanges.subscribe(v => {
       if (v) {
-        this.submitted = false;
-        this.onCodeChange(v);
+        this.isSubmitted = false;
+        this.onUserTicketCodeChange(v);
       }
     });
 
-    this.form.get('vehicle')?.valueChanges.subscribe((v) => {
+    this.form.get('vehicle')?.valueChanges.subscribe(v => {
       if (v) {
-        this.submitted = false;
-        this.onVehicleChange(v);
+        this.isSubmitted = false;
+        this.onUserTicketVehicleChange(v);
       }
     });
   }
 
-  get f() {
+  get getFormControls() {
     return this.form.controls;
   }
 
-  onControlTicket(): void {
-    this.submitted = true;
+  convertUserTicketValidationTimeFormat(): Date {
+    const userTicketValidationTimeString = this.userTicket.validation?.validation_time;
+    // @ts-ignore
+    const userTicketValidationTimeStringParts = userTicketValidationTimeString.split(", ");
+    const date = userTicketValidationTimeStringParts[0].split(".").reverse().join("-");
+    const time = userTicketValidationTimeStringParts[1];
+    const formattedUserTicketValidationTimeString = `${date}T${time}`;
+    const userTicketValidationTime = new Date(formattedUserTicketValidationTimeString);
 
+    return userTicketValidationTime
+  }
+
+  onUserTicketControl(): void {
+    const invalidUserTicketVehicle = 'Bilet nie został skasowany w pojedzie o podanym identyfiaktorze';
+    const invalidUserTicketCode = 'Podano błędny kod biletu';
     const now = new Date();
 
-    if (this.ticketValidationMessage === 'Podano błędny kod biletu' ||
-      this.ticketValidationMessage === 'Bilet nie został skasowany w pojedzie o podanym identyfiaktorze') {
+    this.isSubmitted = true;
+
+    if (this.userTicketValidationMessage === invalidUserTicketCode ||
+        this.userTicketValidationMessage === invalidUserTicketVehicle) {
       return
     }
 
-    if (this.ticket.validation !== null) {
-      const dateString = this.ticket.validation?.validation_time;
-      const dateParts = dateString.split(", ");
-      const date = dateParts[0].split(".").reverse().join("-");
-      const time = dateParts[1];
-      const formattedDateString = `${date}T${time}`;
-      const validationTime = new Date(formattedDateString);
-      const validityPeriodInMillis = this.ticket.ticket.validityPeriod * 1000;
+    if (this.userTicket.validation !== null) {
+      if (this.userTicket.ticket.type === 'single') {
+        this.userTicketValidationMessage = 'Bilet jest ważny';
+        return;
+      }
 
-      console.log(validationTime.getTime())
-      console.log(validationTime.getTime() + validityPeriodInMillis)
-      console.log(now.getTime())
-      if (this.ticket.ticket.type === 'time' && validationTime.getTime() + validityPeriodInMillis >= now.getTime()) {
-        this.ticketValidationMessage = 'Bilet jest ważny';
+      const userTicketValidationTime = this.convertUserTicketValidationTimeFormat();
+      const userTicketValidityPeriodInMillis = this.userTicket.ticket.validityPeriod * 1000;
+
+      if (this.userTicket.ticket.type === 'time' && userTicketValidationTime.getTime() + userTicketValidityPeriodInMillis >= now.getTime()) {
+        this.userTicketValidationMessage = 'Bilet jest ważny';
       } else {
-        this.ticketValidationMessage = 'Bilet jest nieważny';
-      }
-      if (this.ticket.ticket.type === 'single') {
-        this.ticketValidationMessage = 'Bilet jest ważny';
+        this.userTicketValidationMessage = 'Bilet jest nieważny';
       }
     } else {
-      this.ticketValidationMessage = 'Bilet nie został skasowany';
+      this.userTicketValidationMessage = 'Bilet nie został skasowany';
     }
   }
 
-  private onCodeChange(code: number): void {
-    const ticketExists = this.userService.checkTicketExists(code);
-    this.ticketCode = code;
+  private onUserTicketCodeChange(userTicketCode: number): void {
+    const userTicketExists = this.userTicketService.checkUserTicketExists(userTicketCode);
+    this.userTicketCode = userTicketCode;
 
-    if (ticketExists) {
-      this.ticket = this.userService.userTickets.filter(ticket => ticket.code === Number(this.ticketCode))[0];
-      this.ticketValidationMessage = '';
+    if (userTicketExists) {
+      this.userTicket = this.userTicketService.userTickets.filter(ticket => ticket.code === Number(this.userTicketCode))[0];
+      this.userTicketValidationMessage = '';
     } else {
-      this.ticketValidationMessage = 'Podano błędny kod biletu';
+      this.userTicketValidationMessage = 'Podano błędny kod biletu';
     }
   }
 
-  private onVehicleChange(vehicle: number): void {
-    const hasVehicle = this.userService.checkTicketHasVehicle(this.ticketCode, vehicle);
+  private onUserTicketVehicleChange(userTicketVehicle: number): void {
+    const hasVehicle = this.userTicketService.checkUserTicketHasVehicle(this.userTicketCode, userTicketVehicle);
 
     if (hasVehicle) {
-      this.ticketValidationMessage = '';
+      this.userTicketValidationMessage = '';
     } else {
-      this.ticketValidationMessage = 'Bilet nie został skasowany w pojedzie o podanym identyfiaktorze';
+      this.userTicketValidationMessage = 'Bilet nie został skasowany w pojedzie o podanym identyfiaktorze';
     }
   }
 
