@@ -4,11 +4,11 @@
     <li class="nav-item">
       <a [routerLink]="['/tickets']" class="nav-link text-light" >Lista biletów</a>
     </li>
-    <li class="nav-item">
-      <a [routerLink]="['/']" class="nav-link text-light">Moje bilety</a>
+    <li class="nav-item" *ngIf="isLoggedIn()">
+      <a [routerLink]="['/my-tickets']" class="nav-link text-light">Moje bilety</a>
     </li>
-    <li class="nav-item">
-      <a [routerLink]="['/']" class="nav-link text-light">Skontroluj bilet</a>
+    <li class="nav-item" *ngIf="isLoggedIn()">
+      <a [routerLink]="['/ticket-control']" class="nav-link text-light">Skontroluj bilet</a>
     </li>
   </ul>
   <ul class="nav navbar-nav me-2">

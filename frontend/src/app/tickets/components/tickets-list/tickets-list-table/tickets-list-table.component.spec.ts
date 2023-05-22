@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TicketsListTableComponent } from './tickets-list-table.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {TicketsListTableComponent} from './tickets-list-table.component';
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserModule} from "@angular/platform-browser";
 import {TicketsModule} from "../../../tickets.module";

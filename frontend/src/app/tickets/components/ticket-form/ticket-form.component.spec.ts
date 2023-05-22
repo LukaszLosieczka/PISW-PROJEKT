@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TicketFormComponent } from './ticket-form.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {TicketFormComponent} from './ticket-form.component';
 import {BrowserModule} from "@angular/platform-browser";
 import {TicketsModule} from "../../tickets.module";
 import {AppRoutingModule} from "../../../app-routing.module";

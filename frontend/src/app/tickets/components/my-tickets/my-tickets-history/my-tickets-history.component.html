@@ -1,0 +1,26 @@
+<div class="table-container">
+<table class="table" id="tickets">
+  <thead class="bg-secondary bg-opacity-50">
+  <tr>
+    <th>Kod</th>
+    <th>Typ</th>
+    <th>Cena</th>
+    <th>Zniżka</th>
+    <th>Data zakupu</th>
+    <th>Skasowany</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let userHistoryTicket of getUserHistoryTickets()">
+  <tr>
+    <td>{{userHistoryTicket.code}}</td>
+    <td>{{userHistoryTicket.ticket.name}}</td>
+    <td>{{(userHistoryTicket.ticket.price * (1.0 - userHistoryTicket.discount / 100)).toFixed(2)}} zł</td>
+    <td>{{userHistoryTicket.discount}}%</td>
+    <td>{{userHistoryTicket.purchase_time}}</td>
+    <td>Tak</td>
+  </tr>
+  </ng-container>
+  </tbody>
+</table>
+</div>

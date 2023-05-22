@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {TicketsListComponent} from "./tickets/components/tickets-list/tickets-list.component";
 import {TicketsListResolver} from "./tickets/resolvers/tickets-list.resolver";
 import {TicketFormComponent} from "./tickets/components/ticket-form/ticket-form.component";
@@ -9,6 +9,8 @@ import {HomeLayoutComponent} from "./layouts/home-layout/home-layout.component";
 import {LoginLayoutComponent} from "./layouts/login-layout/login-layout.component";
 import {LoginComponent} from "./user/components/login/login.component";
 import {RegisterComponent} from "./user/components/register/register.component";
+import {MyTicketsComponent} from "./tickets/components/my-tickets/my-tickets.component";
+import {TicketControlComponent} from "./tickets/components/ticket-control/ticket-control.component";
 
 const routes: Routes = [
   {
@@ -20,7 +22,6 @@ const routes: Routes = [
     path: '',
     component: HomeLayoutComponent,
     children: [
-
       {
         path: 'tickets',
         component: TicketsListComponent,
@@ -35,6 +36,14 @@ const routes: Routes = [
           ticket: TicketFormResolver,
           discounts: DiscountsResolver
         }
+      },
+      {
+        path: 'my-tickets',
+        component: MyTicketsComponent
+      },
+      {
+        path: 'ticket-control',
+        component: TicketControlComponent
       }
     ]
   },
@@ -42,7 +51,6 @@ const routes: Routes = [
     path: '',
     component: LoginLayoutComponent,
     children: [
-
       {
         path: 'login',
         component: LoginComponent
@@ -59,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

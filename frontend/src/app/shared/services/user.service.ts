@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +7,9 @@ export class UserService {
 
   isLoggedIn: boolean = false;
 
-  constructor() { }
+  constructor() {}
 
-  logIn(username:string, password: string): void{
+  logIn(username: string, password: string): void {
     this.isLoggedIn = true;
   }
 
@@ -17,8 +17,6 @@ export class UserService {
     this.isLoggedIn = false;
   }
 
-  register(): void{
-
-  }
+  register(): void {}
 
 }

@@ -14,8 +14,13 @@
   <tr *ngFor="let ticket of getSingleTickets()">
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
-    <td> {{ticket.price}} zł</td>
-    <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    <td> {{(ticket.price).toFixed(2)}} zł</td>
+    <ng-container *ngIf="userService.isLoggedIn; else login">
+      <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    </ng-container>
+    <ng-template #login>
+      <td class="text-center"> <a routerLink="/login" class="btn btn-primary">Kup bilet</a></td>
+    </ng-template>
   </tr>
   <tr>
     <td class="text-center bg-light fw-bold" colspan="4">Bilety czasowe</td>
@@ -23,8 +28,13 @@
   <tr *ngFor="let ticket of getTimeTickets()">
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
-    <td> {{ticket.price}} zł</td>
-    <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    <td> {{(ticket.price).toFixed(2)}} zł</td>
+    <ng-container *ngIf="userService.isLoggedIn; else login">
+      <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    </ng-container>
+    <ng-template #login>
+      <td class="text-center"> <a routerLink="/login" class="btn btn-primary">Kup bilet</a></td>
+    </ng-template>
   </tr>
   <tr>
     <td class="text-center bg-light fw-bold" colspan="4">Bilety okresowe</td>
@@ -32,9 +42,14 @@
   <tr *ngFor="let ticket of getSeasonTickets()">
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
-    <td> {{ticket.price}} zł</td>
+    <td> {{(ticket.price).toFixed(2)}} zł</td>
+    <ng-container *ngIf="userService.isLoggedIn; else login">
     <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
-  </tr >
+    </ng-container>
+    <ng-template #login>
+    <td class="text-center"> <a routerLink="/login" class="btn btn-primary">Kup bilet</a></td>
+    </ng-template>
+  </tr>
   </tbody>
 </table>
 
