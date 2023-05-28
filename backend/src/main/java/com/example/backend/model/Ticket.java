@@ -1,7 +1,7 @@
 package com.example.backend.model;
 
 import com.example.backend.model.enums.TicketType;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
