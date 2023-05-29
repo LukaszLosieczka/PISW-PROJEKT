@@ -2,13 +2,17 @@ package com.example.backend.model;
 
 import javax.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
 @Getter
 @Setter
 @Entity
+@SuperBuilder
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
     @Id

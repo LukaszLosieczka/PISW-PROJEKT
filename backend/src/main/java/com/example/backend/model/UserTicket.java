@@ -2,13 +2,17 @@ package com.example.backend.model;
 
 import javax.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@SuperBuilder
+@NoArgsConstructor
 @Table(name = "user_ticket")
 public class UserTicket {
     @Id

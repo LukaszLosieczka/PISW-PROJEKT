@@ -3,13 +3,17 @@ package com.example.backend.model;
 import com.example.backend.model.enums.TicketType;
 import javax.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 @Entity
+@SuperBuilder
+@NoArgsConstructor
 @Table(name = "ticket")
 public class Ticket {
     @Id
