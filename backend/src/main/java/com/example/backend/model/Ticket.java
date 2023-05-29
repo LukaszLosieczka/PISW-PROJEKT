@@ -30,6 +30,9 @@ public class Ticket {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description", nullable = false)
+    private String description;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "ticket_type", nullable = false)
     private TicketType ticketType;

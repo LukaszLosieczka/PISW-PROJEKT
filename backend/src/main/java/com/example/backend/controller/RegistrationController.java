@@ -21,15 +21,11 @@ public class RegistrationController {
 
     @PostMapping("/register")
     ResponseEntity<Object> registerUser(@Valid @RequestBody RegisterUser userDto) {
-        if (userDto != null) {
-            try {
-               userService.registerNewUserAccount(userDto);
-            }
-            catch (IllegalArgumentException ex){
-                return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-            }
-            return new ResponseEntity<>("Użytkownik zarejestrowany", HttpStatus.CREATED);
+        try {
+            userService.registerNewUserAccount(userDto);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Zły payload", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("User registered", HttpStatus.CREATED);
     }
 }
