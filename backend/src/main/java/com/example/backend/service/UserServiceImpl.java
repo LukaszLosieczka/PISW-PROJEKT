@@ -1,5 +1,7 @@
 package com.example.backend.service;
 
+import com.example.backend.dto.RegisterUser;
+import com.example.backend.model.Role;
 import com.example.backend.model.User;
 import com.example.backend.repository.RoleRepository;
 import com.example.backend.repository.UserRepository;
@@ -9,10 +11,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +24,9 @@ import java.util.Collection;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -44,5 +51,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 credentialsNonExpired,
                 accountNonLocked,
                 authorities);
+    }
+
+    @Override
+    public User registerNewUserAccount(RegisterUser userDto) {
+        if(userRepository.findByLogin(userDto.getLogin()) != null){
+            throw new IllegalArgumentException("Użytkownik o loginie: " + userDto.getLogin() + " już istnieje");
+        }
+        Optional<Role> role = roleRepository.findById("ROLE_USER");
+        if(role.isEmpty()){
+            throw new RuntimeException("User role not exists");
+        }
+        User user = new User();
+        user.setRole(role.get());
+        user.setSurname(userDto.getSurname());
+        user.setName(userDto.getName());
+        user.setLogin(userDto.getLogin());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userRepository.save(user);
+        return user;
     }
 }

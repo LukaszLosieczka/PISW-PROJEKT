@@ -25,6 +25,6 @@ public class RegisterUser {
     private String login;
 
     @NotEmpty()
-    @Size(min = 7, max = 32, message = "Hasło musi zawierać od 7 do 32 znaków")
+    @Size(min = 6, max = 32, message = "Hasło musi zawierać od 6 do 32 znaków")
     private String password;
 }
