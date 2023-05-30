@@ -1,7 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Ticket;
-import com.example.backend.service.TicketsService;
+import com.example.backend.service.TicketService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,13 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TicketsControllerTest {
+public class TicketControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private TicketsService ticketsService;
+    private TicketService ticketsService;
 
     private final String USERNAME = "admin1";
     private final String PASSWORD = "$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK";
