@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Ticket;
 import com.example.backend.service.TicketsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +15,12 @@ import java.util.List;
 @RequestMapping(path = "/tickets")
 public class TicketsController {
 
+    @Autowired
     TicketsService ticketsService;
 
     @GetMapping(path = "/available_tickets")
     ResponseEntity<Object> getAvailableTickets() {
-        List<Ticket> availableTickets= ticketsService.getAvailableTickets();
+        List<Ticket> availableTickets = ticketsService.getAvailableTickets();
         return new ResponseEntity<>(availableTickets, HttpStatus.OK);
     }
 

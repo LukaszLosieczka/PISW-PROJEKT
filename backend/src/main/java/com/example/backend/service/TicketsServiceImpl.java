@@ -17,4 +17,5 @@ public class TicketsServiceImpl implements TicketsService {
     public List<Ticket> getAvailableTickets() {
         return ticketRepository.findAll();
     }
+
 }
