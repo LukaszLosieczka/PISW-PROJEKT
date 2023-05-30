@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class UserTicket {
     @Id
     @Column(name = "code", nullable = false)
-    private Long code;
+    private String code;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")

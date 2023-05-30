@@ -31,7 +31,7 @@ public class AuthController {
         try{
             tokens = service.authenticateUser(loginUser);
         }catch(BadCredentialsException e){
-            return new ResponseEntity<>("Niepoprawny login lub hasło", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Invalid login or password", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class AuthController {
                 return new ResponseEntity<>(exception.getMessage(), FORBIDDEN);
             }
         } else {
-            return new ResponseEntity<>("Nie znaleziono refresh tokenu", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("refresh token not provided", HttpStatus.BAD_REQUEST);
         }
     }
 }

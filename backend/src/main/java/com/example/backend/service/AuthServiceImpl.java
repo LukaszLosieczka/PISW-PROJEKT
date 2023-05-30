@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService{
             authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginUser.getLogin(), loginUser.getPassword()));
         } catch (AuthenticationException ex) {
-            throw new BadCredentialsException("hasło lub login niepoprawne");
+            throw new BadCredentialsException("Password or login invalid");
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String login = authentication.getName();
