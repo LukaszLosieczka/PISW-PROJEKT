@@ -9,7 +9,7 @@ INSERT INTO user (login, password, role, surname, name) VALUES
 ON DUPLICATE KEY UPDATE login=login;
 
 INSERT INTO ticket (id, validity_period_sec, price, name, description, ticket_type) VALUES
-    (1, 0, 2.30, 'jednorazowy', 'wszystkie linie', 'SINGLE'),
+    (1, 30, 2.30, 'jednorazowy', 'wszystkie linie', 'SINGLE'),
     (2, 900, 1.60, '15-minutowy', 'wszystkie linie', 'TIME'),
     (3, 1800, 2.70, '30-minutowy', 'wszystkie linie', 'TIME'),
     (4, 3600, 5.15, 'godzinny', 'wszystkie linie', 'TIME'),
