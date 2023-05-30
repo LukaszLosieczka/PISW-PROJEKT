@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +17,11 @@ public class TicketsServiceImpl implements TicketsService {
     @Override
     public List<Ticket> getAvailableTickets() {
         return ticketRepository.findAll();
+    }
+
+    @Override
+    public Optional<Ticket> getAvailableTicket(Long ticketId) {
+        return ticketRepository.findById(ticketId);
     }
 
 }
