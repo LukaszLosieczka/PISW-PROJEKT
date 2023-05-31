@@ -71,6 +71,7 @@ public abstract class IntegrationTestBase {
     protected Validation existingValidation(Validation validation){
         return validationRepository.save(validation);
     }
+
     protected List<Validation> getAllValidations(){
         return validationRepository.findAll();
     }
@@ -136,4 +137,5 @@ public abstract class IntegrationTestBase {
                 .userTicket(userTicket)
                 .build();
     }
+
 }

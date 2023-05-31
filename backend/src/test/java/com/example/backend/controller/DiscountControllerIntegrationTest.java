@@ -1,9 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Discount;
-import com.example.backend.model.Ticket;
 import com.example.backend.service.DiscountService;
-import com.example.backend.service.TicketService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DiscountControllerTest {
+public class DiscountControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
