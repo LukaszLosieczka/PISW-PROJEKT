@@ -1,7 +1,6 @@
 package com.example.backend;
 
-import com.example.backend.model.Role;
-import com.example.backend.model.User;
+import com.example.backend.model.*;
 import com.example.backend.repository.*;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +29,8 @@ public abstract class IntegrationTestBase {
 
     @AfterEach
     void cleanUpDB(){
-        userTicketRepository.deleteAll();
         validationRepository.deleteAll();
+        userTicketRepository.deleteAll();
         ticketRepository.deleteAll();
         discountRepository.deleteAll();
         userRepository.deleteAll();
@@ -53,5 +52,19 @@ public abstract class IntegrationTestBase {
     protected List<Role> getAllRoles(){
         return roleRepository.findAll();
     }
-
+    protected Ticket existingTicket(Ticket ticket){
+        return ticketRepository.save(ticket);
+    }
+    protected Discount existingDiscount(Discount discount){
+        return discountRepository.save(discount);
+    }
+    protected UserTicket existingUserTicket(UserTicket userTicket){
+        return userTicketRepository.save(userTicket);
+    }
+    protected List<UserTicket> getAllUserTickets(){
+        return userTicketRepository.findAll();
+    }
+    protected Validation existingValidation(Validation validation){
+        return validationRepository.save(validation);
+    }
 }

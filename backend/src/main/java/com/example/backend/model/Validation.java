@@ -20,13 +20,13 @@ public class Validation {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToOne(mappedBy = "validation")
+    @OneToOne(optional = false)
     private UserTicket userTicket;
 
     @Column(name = "validation_t_ime", nullable = false)
-    private LocalDateTime validationTIme;
+    private LocalDateTime validationTime;
 
     @Column(name = "vehicle_id", nullable = false)
-    private String vehicle_id;
+    private String vehicleId;
 
 }

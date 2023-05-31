@@ -31,7 +31,7 @@ public class UserTicket {
     @JoinColumn(name = "user_login", nullable = false)
     private User user;
 
-    @OneToOne(orphanRemoval = true)
+    @OneToOne(mappedBy = "userTicket")
     @JoinColumn(name = "validation_id")
     private Validation validation;
 
