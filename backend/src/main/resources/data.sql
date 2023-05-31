@@ -5,7 +5,8 @@ INSERT INTO role (name) VALUES
 ON DUPLICATE KEY UPDATE name=name;
 
 INSERT INTO user (login, password, role, surname, name) VALUES
-    ('admin1', '$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK', 'ROLE_ADMIN', 'admin', 'admin')
+    ('admin1', '$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK', 'ROLE_ADMIN', 'admin', 'admin'),
+    ('collector1', '$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK', 'ROLE_TICKET_COLLECTOR', 'collector', 'collector')
 ON DUPLICATE KEY UPDATE login=login;
 
 INSERT INTO ticket (id, validity_period_sec, price, name, description, ticket_type) VALUES
