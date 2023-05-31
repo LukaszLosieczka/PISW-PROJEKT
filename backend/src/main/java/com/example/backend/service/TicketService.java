@@ -10,6 +10,4 @@ public interface TicketService {
     List<UserTicketDto> buyTicket(BuyTicket ticket, String userLogin);
 
     List<UserTicketDto> getUserTickets(String userLogin, Boolean active);
-
-    Boolean isTicketValid(String ticketCode, String vehicleId);
 }

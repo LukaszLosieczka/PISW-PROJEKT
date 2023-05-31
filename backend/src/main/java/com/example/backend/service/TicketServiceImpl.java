@@ -9,12 +9,10 @@ import com.example.backend.model.Discount;
 import com.example.backend.model.Ticket;
 import com.example.backend.model.User;
 import com.example.backend.model.UserTicket;
-import com.example.backend.model.enums.TicketType;
 import com.example.backend.repository.DiscountRepository;
 import com.example.backend.repository.TicketRepository;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.repository.UserTicketRepository;
-import com.example.backend.service.ticketvalidator.TicketValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,8 +33,7 @@ public class TicketServiceImpl implements TicketService{
     private final TicketRepository ticketRepository;
     private final UserTicketRepository userTicketRepository;
     private final UserTicketMapper userTicketMapper;
-
-    private final List<TicketValidator> ticketValidators;
+    private final ValidationService validationService;
 
     @Override
     public List<UserTicketDto> buyTicket(BuyTicket buyTicket, String userLogin) {
@@ -65,25 +62,9 @@ public class TicketServiceImpl implements TicketService{
         User user = userRepository.getByLogin(userLogin)
                 .orElseThrow(() -> new IllegalArgumentException(userLogin + " not found"));
         return user.getUserTickets().stream()
-                .filter(userTicket -> getTicketValidator(userTicket.getTicket().getTicketType())
-                        .isTicketActive(userTicket) == active)
+                .filter(userTicket ->  validationService.isTicketActive(userTicket) == active)
                 .map(userTicketMapper::toDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Boolean isTicketValid(String ticketCode, String vehicleId) {
-        UserTicket ticket = userTicketRepository.findByCode(ticketCode)
-                .orElseThrow(() -> new IllegalArgumentException("Ticket with code " + ticketCode + " not found!"));
-        TicketValidator ticketValidator = getTicketValidator(ticket.getTicket().getTicketType());
-        return ticketValidator.isTicketValid(ticket, vehicleId);
-    }
-
-    private TicketValidator getTicketValidator(TicketType ticketType){
-        return ticketValidators.stream()
-                .filter(ticketValidator -> ticketValidator.canHandle(ticketType))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Unknown ticket type: " + ticketType.toString()));
     }
 
     private UserTicket createUserTicket(User user, Ticket ticket, Discount discount){
