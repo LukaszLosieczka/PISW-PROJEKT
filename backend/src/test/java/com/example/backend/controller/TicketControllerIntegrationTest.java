@@ -2,22 +2,23 @@ package com.example.backend.controller;
 
 import com.example.backend.IntegrationTestBase;
 import com.example.backend.model.*;
+import com.example.backend.model.enums.TicketType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.math.BigDecimal;
+import java.util.*;
 import static org.hamcrest.Matchers.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
 class TicketControllerIntegrationTest extends IntegrationTestBase {
@@ -84,6 +85,26 @@ class TicketControllerIntegrationTest extends IntegrationTestBase {
                 .andDo(log())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].code", is(userTicket.getCode())));
+    }
+
+    @Test
+    @WithMockUser(username = "janek123", roles = {"USER"})
+    void shoukdReturnEmptyAvailableTicketsList() throws Exception {
+        mockMvc.perform(get("/tickets/available_tickets")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("Brak dostępnych biletów"));
+    }
+
+    @Test
+    @WithMockUser(username = "janek123", roles = {"USER"})
+    void shouldNotReturnAvailableTicketByIdIfNotExists() throws Exception {
+        Long ticketId = 1L;
+
+        mockMvc.perform(get("/tickets/available_tickets/{id}", ticketId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string("Brak dostępnego biletu o podanym id"));
     }
 
 }
