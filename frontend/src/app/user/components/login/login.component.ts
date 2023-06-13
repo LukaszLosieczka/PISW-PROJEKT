@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
+  isError = false;
+  errorMessage = "";
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -41,7 +43,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error: error => {
-          console.log(error)
+          this.isError = true;
+          this.errorMessage = error.error;
           this.loading = false;
         }
       })

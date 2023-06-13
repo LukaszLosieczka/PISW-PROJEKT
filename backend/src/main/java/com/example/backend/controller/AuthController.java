@@ -31,7 +31,7 @@ public class AuthController {
         try{
             tokens = service.authenticateUser(loginUser);
         }catch(BadCredentialsException e){
-            return new ResponseEntity<>("Invalid login or password", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nieprawidłowy login lub hasło", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(tokens, HttpStatus.OK);
     }

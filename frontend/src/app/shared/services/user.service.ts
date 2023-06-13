@@ -14,8 +14,6 @@ const registrationApiPrefix = 'http://localhost:8080/registration/register';
 export class UserService {
 
   isLoggedIn: boolean = false;
-  isError: boolean = false;
-  errorMessage: string = ""
 
   constructor(private readonly http: HttpClient) {}
 
