@@ -15,15 +15,15 @@ export class TicketsListTableComponent {
   constructor(public userService: UserService) {}
 
   getSingleTickets(): Ticket[] {
-    return this.tickets.filter(t => t.type === TicketType.Single);
+    return this.tickets.filter(t => t.ticketType === TicketType.Single);
   }
 
   getSeasonTickets(): Ticket[] {
-    return this.tickets.filter(t => t.type === TicketType.Season);
+    return this.tickets.filter(t => t.ticketType === TicketType.Season);
   }
 
   getTimeTickets(): Ticket[] {
-    return this.tickets.filter(t => t.type === TicketType.Time);
+    return this.tickets.filter(t => t.ticketType === TicketType.Time);
   }
 
 }

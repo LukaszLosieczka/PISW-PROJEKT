@@ -28,8 +28,8 @@ export class UserTicketService {
         name: 'jednorazowy',
         description: 'wszystkie linie',
         price: 2.30,
-        type: TicketType.Single,
-        validityPeriod: 0
+        ticketType: TicketType.Single,
+        validityPeriodSec: 0
       },
       discount: 0,
       purchase_time: new Date().toLocaleString(),
@@ -53,8 +53,8 @@ export class UserTicketService {
         name: '15-minutowy',
         description: 'wszystkie linie',
         price: 1.60,
-        type: TicketType.Time,
-        validityPeriod: 900
+        ticketType: TicketType.Time,
+        validityPeriodSec: 900
       },
       discount: 0,
       purchase_time: new Date().toLocaleString(),

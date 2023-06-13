@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Ticket} from "../model/ticket";
 
-const ticketsApiPrefix = '/api/tickets';
+const ticketsApiPrefix = 'http://localhost:8080/tickets/available_tickets';
 
 @Injectable({
   providedIn: 'root'

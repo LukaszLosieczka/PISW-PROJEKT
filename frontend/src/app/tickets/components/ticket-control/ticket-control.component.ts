@@ -76,15 +76,15 @@ export class TicketControlComponent implements OnInit {
     }
 
     if (this.userTicket.validation !== null) {
-      if (this.userTicket.ticket.type === 'single') {
+      if (this.userTicket.ticket.ticketType === 'SINGLE') {
         this.userTicketValidationMessage = 'Bilet jest ważny';
         return;
       }
 
       const userTicketValidationTime = this.convertUserTicketValidationTimeFormat();
-      const userTicketValidityPeriodInMillis = this.userTicket.ticket.validityPeriod * 1000;
+      const userTicketValidityPeriodInMillis = this.userTicket.ticket.validityPeriodSec * 1000;
 
-      if (this.userTicket.ticket.type === 'time' && userTicketValidationTime.getTime() + userTicketValidityPeriodInMillis >= now.getTime()) {
+      if (this.userTicket.ticket.ticketType === 'TIME' && userTicketValidationTime.getTime() + userTicketValidityPeriodInMillis >= now.getTime()) {
         this.userTicketValidationMessage = 'Bilet jest ważny';
       } else {
         this.userTicketValidationMessage = 'Bilet jest nieważny';

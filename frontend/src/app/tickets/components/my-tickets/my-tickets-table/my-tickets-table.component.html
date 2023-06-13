@@ -19,7 +19,7 @@
     <td>{{userTicket.discount}}%</td>
     <td>{{userTicket.purchase_time}}</td>
     <td>
-    <ng-container *ngIf="userTicket.ticket.type === 'single' || userTicket.ticket.type === 'time'; else season">
+    <ng-container *ngIf="userTicket.ticket.ticketType === 'SINGLE' || userTicket.ticket.ticketType === 'TIME'; else season">
       Nie
     </ng-container>
     <ng-template #season>

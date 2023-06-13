@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Discount} from "../model/discount";
 
-const discountsApiPrefix = '/api/discounts';
+const discountsApiPrefix = 'http://localhost:8080/discounts/available_discounts';
 
 @Injectable({
   providedIn: 'root'
