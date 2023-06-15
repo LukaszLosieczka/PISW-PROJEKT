@@ -50,8 +50,7 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          console.log("UDAŁO SIĘ")
-          this.router.navigate(['/']);
+          this.router.navigate(['login']);
         },
         error: error => {
           this.isError = true;

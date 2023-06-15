@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Observable, Subscription} from "rxjs";
 import {User} from "../../user/model/User";
 import jwt_decode from "jwt-decode";
@@ -40,7 +40,11 @@ export class UserService {
   }
 
   register(user: User): Observable<any> {
-    return this.http.post<any>(registrationApiPrefix, user);
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    // @ts-ignore
+    return this.http.post<any>(registrationApiPrefix, user, {headers, responseType: 'text'});
   }
 
   private saveTokens(refreshToken: string, accessToken: string): void {
