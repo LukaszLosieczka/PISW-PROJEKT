@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -40,14 +40,14 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/login']);
         },
         error: error => {
           this.isError = true;
           this.errorMessage = error.error;
           this.loading = false;
         }
-      })
+      });
   }
 
 }

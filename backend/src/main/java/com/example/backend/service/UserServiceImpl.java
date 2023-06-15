@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User registerNewUserAccount(RegisterUser userDto) {
         if(userRepository.findByLogin(userDto.getLogin()) != null){
-            throw new IllegalArgumentException("User with login: " + userDto.getLogin() + " already exists");
+            throw new IllegalArgumentException("Użytkownik z loginem: " + userDto.getLogin() + " już istnieje");
         }
         Optional<Role> role = roleRepository.findById("ROLE_USER");
         if(role.isEmpty()){

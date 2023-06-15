@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, Subscription} from "rxjs";
+import {User} from "../../user/model/User";
+import jwt_decode from "jwt-decode";
+import {TokenPayload} from "../model/token";
 
 const REFRESH_TOKEN = "rt";
 const ACCESS_TOKEN = "at";
@@ -15,7 +18,9 @@ export class UserService {
 
   isLoggedIn: boolean = false;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+    this.setIsLoggedIn();
+  }
 
   logIn(username: string, password: string): Observable<any> {
     return this.http.post<any>(authApiPrefix, {login: username, password: password})
@@ -34,11 +39,43 @@ export class UserService {
     location.reload()
   }
 
-  register(): void {}
+  register(user: User): Observable<any> {
+    return this.http.post<any>(registrationApiPrefix, user);
+  }
 
   private saveTokens(refreshToken: string, accessToken: string): void {
     localStorage.setItem(REFRESH_TOKEN, refreshToken);
     sessionStorage.setItem(ACCESS_TOKEN, accessToken);
+  }
+
+  private setIsLoggedIn(){
+    const rt = this.getRefreshToken();
+
+    if (!rt) return;
+
+    this.isLoggedIn = this.isTokenValid(rt);
+  }
+
+  private getRefreshToken(): string | undefined {
+    return (
+      localStorage.getItem(REFRESH_TOKEN) ??
+      sessionStorage.getItem(REFRESH_TOKEN) ??
+      undefined
+    );
+  }
+
+  private getAccessToken(): string | undefined {
+    return (
+      localStorage.getItem(ACCESS_TOKEN) ??
+      sessionStorage.getItem(ACCESS_TOKEN) ??
+      undefined
+    );
+  }
+
+  private isTokenValid(token: string): boolean {
+    const rtPayload = jwt_decode<TokenPayload>(token);
+    const currentTime = new Date().getTime();
+    return rtPayload.exp * 1000 - currentTime > 0;
   }
 
 }
