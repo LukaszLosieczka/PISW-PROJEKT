@@ -67,14 +67,6 @@ export class UserService {
       ));
   }
 
-  getAccessToken(): string | undefined {
-    return (
-      localStorage.getItem(ACCESS_TOKEN) ??
-      sessionStorage.getItem(ACCESS_TOKEN) ??
-      undefined
-    );
-  }
-
   isTokenValid(token: string): boolean {
     const rtPayload = jwt_decode<TokenPayload>(token);
     const currentTime = new Date().getTime();
@@ -87,7 +79,16 @@ export class UserService {
       return at
     }
     const atPayload = jwt_decode<TokenPayload>(at);
+    console.log(atPayload);
     return atPayload.roles[0];
+  }
+
+  getAccessToken(): string | undefined {
+    return (
+      localStorage.getItem(ACCESS_TOKEN) ??
+      sessionStorage.getItem(ACCESS_TOKEN) ??
+      undefined
+    );
   }
 
   private getRefreshToken(): string | undefined {
@@ -101,13 +102,16 @@ export class UserService {
   private setIsLoggedIn(){
     const rt = this.getRefreshToken();
 
-    if (!rt) return;
+    if (!rt){
+     this.isLoggedIn = false;
+     return;
+    }
 
     this.isLoggedIn = this.isTokenValid(rt);
   }
 
   private saveTokens(refreshToken: string, accessToken: string): void {
     localStorage.setItem(REFRESH_TOKEN, refreshToken);
-    sessionStorage.setItem(ACCESS_TOKEN, accessToken);
+    localStorage.setItem(ACCESS_TOKEN, accessToken);
   }
 }
