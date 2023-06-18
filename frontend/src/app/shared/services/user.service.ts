@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map, Observable, Subscription} from "rxjs";
+import {map, Observable} from "rxjs";
 import {User} from "../../user/model/User";
 import jwt_decode from "jwt-decode";
 import {TokenPayload} from "../model/token";
+import {Router} from "@angular/router";
 
 const REFRESH_TOKEN = "rt";
 const ACCESS_TOKEN = "at";
 
-const authApiPrefix = 'http://localhost:8080/auth/login';
+const authApiPrefix = 'http://localhost:8080/auth';
 const registrationApiPrefix = 'http://localhost:8080/registration/register';
 
 @Injectable({
@@ -18,12 +19,12 @@ export class UserService {
 
   isLoggedIn: boolean = false;
 
-  constructor(private readonly http: HttpClient) {
+  constructor(private readonly http: HttpClient, private router: Router) {
     this.setIsLoggedIn();
   }
 
   logIn(username: string, password: string): Observable<any> {
-    return this.http.post<any>(authApiPrefix, {login: username, password: password})
+    return this.http.post<any>(authApiPrefix + "/login", {login: username, password: password})
       .pipe(map(data => {
         const rt = data.refresh_token;
         const at = data.access_token;
@@ -36,7 +37,7 @@ export class UserService {
     this.isLoggedIn = false;
     localStorage.removeItem(REFRESH_TOKEN);
     localStorage.removeItem(ACCESS_TOKEN);
-    location.reload()
+    this.router.navigate(['/']);
   }
 
   register(user: User): Observable<any> {
@@ -47,17 +48,46 @@ export class UserService {
     return this.http.post<any>(registrationApiPrefix, user, {headers, responseType: 'text'});
   }
 
-  private saveTokens(refreshToken: string, accessToken: string): void {
-    localStorage.setItem(REFRESH_TOKEN, refreshToken);
-    sessionStorage.setItem(ACCESS_TOKEN, accessToken);
-  }
-
-  private setIsLoggedIn(){
+  refreshTokens() {
     const rt = this.getRefreshToken();
 
-    if (!rt) return;
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${rt}`
+    });
 
-    this.isLoggedIn = this.isTokenValid(rt);
+    return this.http.get<any>(authApiPrefix + "/refresh_token", {headers})
+      .pipe(map(
+        data => {
+          const rt = data.refresh_token;
+          const at = data.access_token;
+          this.saveTokens(rt, at);
+          this.isLoggedIn = true;
+        }
+      ));
+  }
+
+  getAccessToken(): string | undefined {
+    return (
+      localStorage.getItem(ACCESS_TOKEN) ??
+      sessionStorage.getItem(ACCESS_TOKEN) ??
+      undefined
+    );
+  }
+
+  isTokenValid(token: string): boolean {
+    const rtPayload = jwt_decode<TokenPayload>(token);
+    const currentTime = new Date().getTime();
+    return rtPayload.exp * 1000 - currentTime > 0;
+  }
+
+  getUserRole(): string | undefined{
+    const at = this.getAccessToken();
+    if (at == null) {
+      return at
+    }
+    const atPayload = jwt_decode<TokenPayload>(at);
+    return atPayload.roles[0];
   }
 
   private getRefreshToken(): string | undefined {
@@ -68,18 +98,16 @@ export class UserService {
     );
   }
 
-  private getAccessToken(): string | undefined {
-    return (
-      localStorage.getItem(ACCESS_TOKEN) ??
-      sessionStorage.getItem(ACCESS_TOKEN) ??
-      undefined
-    );
+  private setIsLoggedIn(){
+    const rt = this.getRefreshToken();
+
+    if (!rt) return;
+
+    this.isLoggedIn = this.isTokenValid(rt);
   }
 
-  private isTokenValid(token: string): boolean {
-    const rtPayload = jwt_decode<TokenPayload>(token);
-    const currentTime = new Date().getTime();
-    return rtPayload.exp * 1000 - currentTime > 0;
+  private saveTokens(refreshToken: string, accessToken: string): void {
+    localStorage.setItem(REFRESH_TOKEN, refreshToken);
+    sessionStorage.setItem(ACCESS_TOKEN, accessToken);
   }
-
 }

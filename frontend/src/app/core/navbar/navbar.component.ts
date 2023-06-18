@@ -20,4 +20,7 @@ export class NavbarComponent implements OnInit {
     this.userService.logout();
   }
 
+  isTicketCollector(): boolean{
+    return this.userService.getUserRole() === 'ROLE_TICKET_COLLECTOR';
+  }
 }
