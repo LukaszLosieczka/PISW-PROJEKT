@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
     const path = this.getResolvedUrl(route);
     if (this.userService.isLoggedIn) {
       const userRole = this.userService.getUserRole();
-      console.log(userRole);
       if(path === 'login' || path === 'register'){
         this.router.navigate(['/'])
         return false;

@@ -12,6 +12,8 @@ import {RegisterComponent} from "./user/components/register/register.component";
 import {MyTicketsComponent} from "./tickets/components/my-tickets/my-tickets.component";
 import {TicketControlComponent} from "./tickets/components/ticket-control/ticket-control.component";
 import {AuthGuard} from "./utils/auth.guard";
+import {MyTicketsResolver} from "./tickets/resolvers/my-tickets.resolver";
+import {HistoryTicketsResolver} from "./tickets/resolvers/history-tickets.resolver";
 
 const routes: Routes = [
   {
@@ -48,7 +50,11 @@ const routes: Routes = [
         data: {
           roles: ['ROLE_USER', 'ROLE_TICKET_COLLECTOR']
         },
-        component: MyTicketsComponent
+        component: MyTicketsComponent,
+        resolve: {
+          myTickets: MyTicketsResolver,
+          historyTickets: HistoryTicketsResolver
+        }
       },
       {
         path: 'ticket-control',

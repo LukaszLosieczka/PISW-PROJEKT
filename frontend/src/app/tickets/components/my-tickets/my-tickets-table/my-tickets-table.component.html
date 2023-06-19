@@ -14,17 +14,12 @@
   <ng-container *ngFor="let userTicket of getUserTickets()">
   <tr>
     <td>{{userTicket.code}}</td>
-    <td>{{userTicket.ticket.name}}</td>
-    <td>{{(userTicket.ticket.price * (1.0 - userTicket.discount / 100)).toFixed(2)}} zł</td>
-    <td>{{userTicket.discount}}%</td>
+    <td>{{userTicket.ticketType}}</td>
+    <td>{{userTicket.ticketPrice}}</td>
+    <td>{{userTicket.discount}}</td>
     <td>{{userTicket.purchase_time}}</td>
     <td>
-    <ng-container *ngIf="userTicket.ticket.ticketType === 'SINGLE' || userTicket.ticket.ticketType === 'TIME'; else season">
-      Nie
-    </ng-container>
-    <ng-template #season>
-      Nie dotyczy
-    </ng-template>
+      {{ userTicket.isValidated ? 'Tak' : 'Nie' }}
     </td>
   </tr>
   </ng-container>

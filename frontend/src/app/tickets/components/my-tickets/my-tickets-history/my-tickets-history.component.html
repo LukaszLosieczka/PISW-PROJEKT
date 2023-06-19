@@ -14,11 +14,13 @@
   <ng-container *ngFor="let userHistoryTicket of getUserHistoryTickets()">
   <tr>
     <td>{{userHistoryTicket.code}}</td>
-    <td>{{userHistoryTicket.ticket.name}}</td>
-    <td>{{(userHistoryTicket.ticket.price * (1.0 - userHistoryTicket.discount / 100)).toFixed(2)}} zł</td>
+    <td>{{userHistoryTicket.ticketType}}</td>
+    <td>{{userHistoryTicket.ticketPrice}}}</td>
     <td>{{userHistoryTicket.discount}}%</td>
     <td>{{userHistoryTicket.purchase_time}}</td>
-    <td>Tak</td>
+    <td>
+      {{ userHistoryTicket.isValidated ? 'Tak' : 'Nie' }}
+    </td>
   </tr>
   </ng-container>
   </tbody>

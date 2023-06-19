@@ -79,7 +79,6 @@ export class UserService {
       return at
     }
     const atPayload = jwt_decode<TokenPayload>(at);
-    console.log(atPayload);
     return atPayload.roles[0];
   }
 

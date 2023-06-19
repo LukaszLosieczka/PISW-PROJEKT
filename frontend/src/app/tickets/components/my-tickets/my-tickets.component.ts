@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {UserTicket} from "../../model/user-ticket";
-import {UserTicketService} from "../../services/user-ticket.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'bs-my-tickets',
@@ -9,10 +9,12 @@ import {UserTicketService} from "../../services/user-ticket.service";
 })
 export class MyTicketsComponent {
 
-  userTickets: UserTicket[] = [];
+  myTickets: UserTicket[];
+  historyTickets: UserTicket[];
 
-  constructor(private userTicketService: UserTicketService) {
-    this.userTickets = this.userTicketService.userTickets;
+  constructor(private readonly activatedRoute: ActivatedRoute) {
+    this.myTickets = activatedRoute.snapshot.data['myTickets'];
+    this.historyTickets = activatedRoute.snapshot.data['historyTickets'];
   }
 
 }

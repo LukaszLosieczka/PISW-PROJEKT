@@ -13,7 +13,7 @@ export class MyTicketsHistoryComponent {
   constructor() {}
 
   getUserHistoryTickets(): UserTicket[] {
-    return this.userTickets.filter(ticket => ticket.validation !== null);
+    return this.userTickets;
   }
 
 }

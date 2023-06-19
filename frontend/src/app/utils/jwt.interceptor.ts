@@ -10,7 +10,7 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private userService: UserService,  private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const isApiUrl = request.url.startsWith(environment.apiUrl);;
+    const isApiUrl = request.url.startsWith(environment.apiUrl);
     const isLoggedIn = this.userService.isLoggedIn;
     const at = this.userService.getAccessToken()
     let isTokenValid = at && this.userService.isTokenValid(at);
