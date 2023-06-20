@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Ticket} from "../../model/ticket";
 import {Discount} from "../../model/discount";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserTicketService} from "../../services/user-ticket.service";
 
@@ -21,7 +21,7 @@ export class TicketFormComponent implements OnInit {
   chosenDiscount: Discount | null;
   fullPrice: number;
 
-  constructor(private activatedRoute: ActivatedRoute, private userTicketService: UserTicketService) {
+  constructor(private activatedRoute: ActivatedRoute, private userTicketService: UserTicketService, private router: Router) {
     this.ticket = this.activatedRoute.snapshot.data['ticket'];
     this.discounts = this.activatedRoute.snapshot.data['discounts'];
   }
@@ -65,11 +65,11 @@ export class TicketFormComponent implements OnInit {
   }
 
   onBuyNow(): void {
-    this.userTicketService.Ticket = this.ticket;
-    this.userTicketService.Discount = this.chosenDiscount;
-    this.userTicketService.Quantity = this.ticketsQuantity;
-
-    this.userTicketService.addNewUserTickets();
+    this.userTicketService.addNewUserTickets(this.ticket.id, this.chosenDiscount?.id, this.ticketsQuantity)
+      .subscribe({
+        next: () => {
+          this.router.navigate(['my-tickets']);
+        }});
   }
 
 }

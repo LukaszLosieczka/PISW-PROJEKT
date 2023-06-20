@@ -6,6 +6,7 @@ ON DUPLICATE KEY UPDATE name=name;
 
 INSERT INTO user (login, password, role, surname, name) VALUES
     ('admin1', '$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK', 'ROLE_ADMIN', 'admin', 'admin'),
+    ('user1', '$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK', 'ROLE_USER', 'user', 'user'),
     ('collector1', '$2a$10$iEmh3dR5UGxLnVF0bv4cVeGnukOrDITftURUxVeHstQnCBeQhbUlK', 'ROLE_TICKET_COLLECTOR', 'collector', 'collector')
 ON DUPLICATE KEY UPDATE login=login;
 

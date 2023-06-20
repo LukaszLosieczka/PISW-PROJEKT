@@ -18,10 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,6 +61,7 @@ public class TicketServiceImpl implements TicketService {
                 .orElseThrow(() -> new IllegalArgumentException(userLogin + " not found"));
         return user.getUserTickets().stream()
                 .filter(userTicket ->  validationService.isTicketActive(userTicket) == active)
+                .sorted(Comparator.comparing(UserTicket::getPurchaseTime))
                 .map(userTicketMapper::toDto)
                 .collect(Collectors.toList());
     }

@@ -13,7 +13,7 @@ export class MyTicketsHistoryComponent {
   constructor() {}
 
   getUserHistoryTickets(): UserTicket[] {
-    return this.userTickets;
+    return this.userTickets.reverse();
   }
 
 }

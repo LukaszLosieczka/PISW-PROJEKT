@@ -10,23 +10,34 @@ export class JwtInterceptor implements HttpInterceptor {
   constructor(private userService: UserService,  private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if(request.headers.get('skip') === 'true'){
+      const newHeaders = request.headers.delete("skip");
+      const newRequest= request.clone({headers: newHeaders});
+      return next.handle(newRequest);
+    }
     const isApiUrl = request.url.startsWith(environment.apiUrl);
     const isLoggedIn = this.userService.isLoggedIn;
-    const at = this.userService.getAccessToken()
-    let isTokenValid = at && this.userService.isTokenValid(at);
-    if(!isTokenValid) {
+    const at = this.userService.getAccessToken();
+    const rt = this.userService.getRefreshToken();
+    const isRefreshTokenValid = rt && this.userService.isTokenValid(rt)
+    let isAccessTokenValid = at && this.userService.isTokenValid(at);
+    if(isLoggedIn && !isAccessTokenValid) {
+      if (!isRefreshTokenValid) {
+        this.userService.logout();
+        return next.handle(request);
+      }
       this.userService.refreshTokens()
         .subscribe({
           next: () => {
-            isTokenValid = true
+            isAccessTokenValid = true
           },
-          error: error => {
-            this.userService.logout();
-            this.router.navigate(['/login']);
+          error: err => {
+            console.log(err);
           }
         });
+
     }
-    if (isLoggedIn && isApiUrl && isTokenValid) {
+    if (isLoggedIn && isApiUrl && isAccessTokenValid) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${at}`

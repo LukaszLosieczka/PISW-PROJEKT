@@ -53,8 +53,11 @@ export class UserService {
 
     const headers = new HttpHeaders({
       'Accept': 'application/json',
-      'Authorization': `Bearer ${rt}`
+      'Authorization': `Bearer ${rt}`,
+      'skip': 'true'
     });
+
+    console.log("refreshing tokens");
 
     return this.http.get<any>(authApiPrefix + "/refresh_token", {headers})
       .pipe(map(
@@ -62,7 +65,6 @@ export class UserService {
           const rt = data.refresh_token;
           const at = data.access_token;
           this.saveTokens(rt, at);
-          this.isLoggedIn = true;
         }
       ));
   }
@@ -90,7 +92,7 @@ export class UserService {
     );
   }
 
-  private getRefreshToken(): string | undefined {
+  getRefreshToken(): string | undefined {
     return (
       localStorage.getItem(REFRESH_TOKEN) ??
       sessionStorage.getItem(REFRESH_TOKEN) ??

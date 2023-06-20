@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container" style="max-height: 500px; overflow: auto">
 <table class="table" id="tickets">
   <thead class="bg-secondary bg-opacity-50">
   <tr>
@@ -14,12 +14,17 @@
   <ng-container *ngFor="let userTicket of getUserTickets()">
   <tr>
     <td>{{userTicket.code}}</td>
-    <td>{{userTicket.ticketType}}</td>
+    <td>{{userTicket.ticketName}}</td>
     <td>{{userTicket.ticketPrice}}</td>
     <td>{{userTicket.discount}}</td>
-    <td>{{userTicket.purchase_time}}</td>
+    <td>{{userTicket.purchaseTime}}</td>
     <td>
-      {{ userTicket.isValidated ? 'Tak' : 'Nie' }}
+      <ng-container *ngIf="userTicket.ticketType === 'SINGLE'|| userTicket.ticketType === 'TIME'; else season">
+        {{ userTicket.isValidated ? 'Tak' : 'Nie' }}
+      </ng-container>
+      <ng-template #season>
+        Nie dotyczy
+      </ng-template>
     </td>
   </tr>
   </ng-container>
