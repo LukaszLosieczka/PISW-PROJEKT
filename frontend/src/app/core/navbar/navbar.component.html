@@ -4,7 +4,7 @@
     <li class="nav-item">
       <a [routerLink]="['/tickets']" class="nav-link text-light" >Lista biletów</a>
     </li>
-    <li class="nav-item" *ngIf="isLoggedIn()">
+    <li class="nav-item" *ngIf="isLoggedIn() && !isTicketCollector()">
       <a [routerLink]="['/my-tickets']" class="nav-link text-light">Moje bilety</a>
     </li>
     <li class="nav-item" *ngIf="isLoggedIn() && isTicketCollector()">

@@ -36,7 +36,7 @@ const routes: Routes = [
         path: 'tickets/:id',
         canActivate: [AuthGuard],
         data: {
-          roles: ['ROLE_USER', 'ROLE_TICKET_COLLECTOR']
+          roles: ['ROLE_USER']
         },
         component: TicketFormComponent,
         resolve: {
@@ -48,7 +48,7 @@ const routes: Routes = [
         path: 'my-tickets',
         canActivate: [AuthGuard],
         data: {
-          roles: ['ROLE_USER', 'ROLE_TICKET_COLLECTOR']
+          roles: ['ROLE_USER']
         },
         component: MyTicketsComponent,
         resolve: {
