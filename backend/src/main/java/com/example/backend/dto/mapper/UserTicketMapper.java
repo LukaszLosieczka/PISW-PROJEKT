@@ -16,8 +16,9 @@ public class UserTicketMapper {
     public UserTicketDto toDto(UserTicket userTicket){
         UserTicketDto userTicketDto = new UserTicketDto();
         userTicketDto.setCode(userTicket.getCode());
-        userTicketDto.setTicketType(userTicket.getTicket().getName());
-        userTicketDto.setTicketPrice(calculatePrice(userTicket.getTicket(), userTicket.getDiscount()).toString() + "zł");
+        userTicketDto.setTicketName(userTicket.getTicket().getName());
+        userTicketDto.setTicketType(userTicket.getTicket().getTicketType());
+        userTicketDto.setTicketPrice(calculatePrice(userTicket.getTicket(), userTicket.getDiscount()) + "zł");
         userTicketDto.setDiscount(getPercent(userTicket.getDiscount()));
         userTicketDto.setPurchaseTime(userTicket.getPurchaseTime());
         userTicketDto.setIsValidated(userTicket.getValidation() != null);

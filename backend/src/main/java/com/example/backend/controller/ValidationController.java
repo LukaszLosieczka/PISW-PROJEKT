@@ -39,10 +39,10 @@ public class ValidationController {
             TicketValidationResponse ticketValidationResponse = new TicketValidationResponse();
             ticketValidationResponse.setIsValid(isValid);
             if(isValid){
-                ticketValidationResponse.setMessage("Ticket is still valid");
+                ticketValidationResponse.setMessage("Bilet jest ważny!");
             }
             else{
-                ticketValidationResponse.setMessage("Ticket is no longer valid!");
+                ticketValidationResponse.setMessage("Bilet jest nieważny!");
             }
             return new ResponseEntity<>(ticketValidationResponse, HttpStatus.OK);
         }catch (RuntimeException ex){

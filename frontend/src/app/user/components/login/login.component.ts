@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../shared/services/user.service";
 import {Router} from "@angular/router";
+import {first} from "rxjs";
 
 @Component({
   selector: 'bs-login',
@@ -13,30 +14,40 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
-  username = "";
-  password = "";
+  isError = false;
+  errorMessage = "";
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.form = new FormGroup({
-      username: new FormControl(this.username, [Validators.required]),
-      password: new FormControl(this.password, [Validators.required])
+      username: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required])
     });
   }
 
   get f() { return this.form.controls; }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.form.invalid) {
       return;
     }
 
-    this.userService.logIn(this.username, this.password);
-
-    this.router.navigate(['/']);
+    this.loading = true;
+    this.userService.logIn(this.form.get("username")?.value, this.form.get("password")?.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/']);
+        },
+        error: error => {
+          this.isError = true;
+          this.errorMessage = error.error;
+          this.loading = false;
+        }
+      });
   }
 
 }

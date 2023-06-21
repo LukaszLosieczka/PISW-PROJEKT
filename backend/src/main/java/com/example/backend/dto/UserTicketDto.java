@@ -1,5 +1,6 @@
 package com.example.backend.dto;
 
+import com.example.backend.model.enums.TicketType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserTicketDto {
     private String code;
-    private String ticketType;
+    private String ticketName;
+    private TicketType ticketType;
     private String ticketPrice;
     private String discount;
     private LocalDateTime purchaseTime;

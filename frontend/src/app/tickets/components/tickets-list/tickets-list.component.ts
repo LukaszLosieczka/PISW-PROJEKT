@@ -12,7 +12,7 @@ export class TicketsListComponent implements OnInit {
   readonly tickets: Ticket[]
 
   constructor(private readonly activatedRoute: ActivatedRoute) {
-    this.tickets = activatedRoute.snapshot.data['tickets']
+    this.tickets = activatedRoute.snapshot.data['tickets'];
   }
 
   ngOnInit(): void {

@@ -30,6 +30,9 @@
           <div *ngIf="f.password.errors.required">Hasło jest obowiązkowe</div>
           <div *ngIf="f.password.errors.minlength">Hasło musi mieć conajmniej 6 znaków</div>
         </div>
+        <div *ngIf="isError" class="text-danger">
+          {{errorMessage}}
+        </div>
       </div>
       <div>
         <button [disabled]="loading" class="btn btn-primary">

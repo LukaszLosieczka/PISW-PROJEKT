@@ -5,6 +5,6 @@ export interface Ticket {
   name: string
   description: string
   price: number
-  type: TicketType
-  validityPeriod: number
+  ticketType: TicketType
+  validityPeriodSec: number
 }

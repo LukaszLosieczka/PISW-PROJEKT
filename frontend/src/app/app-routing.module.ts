@@ -11,6 +11,9 @@ import {LoginComponent} from "./user/components/login/login.component";
 import {RegisterComponent} from "./user/components/register/register.component";
 import {MyTicketsComponent} from "./tickets/components/my-tickets/my-tickets.component";
 import {TicketControlComponent} from "./tickets/components/ticket-control/ticket-control.component";
+import {AuthGuard} from "./utils/auth.guard";
+import {MyTicketsResolver} from "./tickets/resolvers/my-tickets.resolver";
+import {HistoryTicketsResolver} from "./tickets/resolvers/history-tickets.resolver";
 
 const routes: Routes = [
   {
@@ -31,6 +34,10 @@ const routes: Routes = [
       },
       {
         path: 'tickets/:id',
+        canActivate: [AuthGuard],
+        data: {
+          roles: ['ROLE_USER']
+        },
         component: TicketFormComponent,
         resolve: {
           ticket: TicketFormResolver,
@@ -39,10 +46,22 @@ const routes: Routes = [
       },
       {
         path: 'my-tickets',
-        component: MyTicketsComponent
+        canActivate: [AuthGuard],
+        data: {
+          roles: ['ROLE_USER']
+        },
+        component: MyTicketsComponent,
+        resolve: {
+          myTickets: MyTicketsResolver,
+          historyTickets: HistoryTicketsResolver
+        }
       },
       {
         path: 'ticket-control',
+        canActivate: [AuthGuard],
+        data: {
+          roles: ['ROLE_TICKET_COLLECTOR']
+        },
         component: TicketControlComponent
       }
     ]
@@ -53,10 +72,12 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
+        canActivate: [AuthGuard],
         component: LoginComponent
       },
       {
         path: 'register',
+        canActivate: [AuthGuard],
         component: RegisterComponent
       }
     ]

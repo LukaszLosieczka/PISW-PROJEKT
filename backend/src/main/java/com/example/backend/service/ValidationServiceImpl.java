@@ -49,7 +49,7 @@ public class ValidationServiceImpl implements ValidationService{
     @Override
     public Boolean isTicketValid(TicketValidation validation) {
         UserTicket ticket = userTicketRepository.findByCode(validation.getTicketCode())
-                .orElseThrow(() -> new IllegalArgumentException("Ticket with code " + validation.getTicketCode() + " not found!"));
+                .orElseThrow(() -> new IllegalArgumentException("Bilet o podanym kodzie nie istnieje!"));
         TicketValidator ticketValidator = getTicketValidator(ticket.getTicket().getTicketType());
         return ticketValidator.isTicketValid(ticket, validation.getVehicleId());
     }

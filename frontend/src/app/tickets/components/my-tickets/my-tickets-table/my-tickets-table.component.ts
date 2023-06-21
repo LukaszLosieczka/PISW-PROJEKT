@@ -13,7 +13,7 @@ export class MyTicketsTableComponent {
   constructor() {}
 
   getUserTickets(): UserTicket[] {
-    return this.userTickets.filter(ticket => ticket.validation === null);
+    return this.userTickets.reverse();
   }
 
 }

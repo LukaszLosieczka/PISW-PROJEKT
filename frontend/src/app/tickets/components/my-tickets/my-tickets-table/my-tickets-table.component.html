@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container" style="max-height: 500px; overflow: auto">
 <table class="table" id="tickets">
   <thead class="bg-secondary bg-opacity-50">
   <tr>
@@ -14,17 +14,17 @@
   <ng-container *ngFor="let userTicket of getUserTickets()">
   <tr>
     <td>{{userTicket.code}}</td>
-    <td>{{userTicket.ticket.name}}</td>
-    <td>{{(userTicket.ticket.price * (1.0 - userTicket.discount / 100)).toFixed(2)}} zł</td>
-    <td>{{userTicket.discount}}%</td>
-    <td>{{userTicket.purchase_time}}</td>
+    <td>{{userTicket.ticketName}}</td>
+    <td>{{userTicket.ticketPrice}}</td>
+    <td>{{userTicket.discount}}</td>
+    <td>{{userTicket.purchaseTime}}</td>
     <td>
-    <ng-container *ngIf="userTicket.ticket.type === 'single' || userTicket.ticket.type === 'time'; else season">
-      Nie
-    </ng-container>
-    <ng-template #season>
-      Nie dotyczy
-    </ng-template>
+      <ng-container *ngIf="userTicket.ticketType === 'SINGLE'|| userTicket.ticketType === 'TIME'; else season">
+        {{ userTicket.isValidated ? 'Tak' : 'Nie' }}
+      </ng-container>
+      <ng-template #season>
+        Nie dotyczy
+      </ng-template>
     </td>
   </tr>
   </ng-container>

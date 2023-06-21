@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Discount} from "../model/discount";
+import {environment} from "../../../environments/environment";
 
-const discountsApiPrefix = '/api/discounts';
+const discountsApiPrefix = `${environment.apiUrl}discounts/available_discounts`;
 
 @Injectable({
   providedIn: 'root'

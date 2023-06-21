@@ -1,10 +1,15 @@
 import {Ticket} from "./ticket";
 import {Validation} from "./validation";
+import {TicketType} from "./ticket-type";
+
 export interface UserTicket {
   code: number
+  ticketName: string
+  ticketType: TicketType
+  discount: string
+  ticketPrice: string
+  purchaseTime: string
+  isValidated: boolean
   ticket: Ticket
-  discount: number
-  validation: Validation | null
-  purchase_time: string
-  quantity: number
+  validation: Validation
 }
