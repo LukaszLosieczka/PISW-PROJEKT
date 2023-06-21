@@ -5,12 +5,10 @@ import {User} from "../../user/model/User";
 import jwt_decode from "jwt-decode";
 import {TokenPayload} from "../model/token";
 import {Router} from "@angular/router";
+import {environment} from "../../../environments/environment";
 
 const REFRESH_TOKEN = "rt";
 const ACCESS_TOKEN = "at";
-
-const authApiPrefix = 'http://localhost:8080/auth';
-const registrationApiPrefix = 'http://localhost:8080/registration/register';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +22,7 @@ export class UserService {
   }
 
   logIn(username: string, password: string): Observable<any> {
-    return this.http.post<any>(authApiPrefix + "/login", {login: username, password: password})
+    return this.http.post<any>(environment.apiUrl + "auth/login", {login: username, password: password})
       .pipe(map(data => {
         const rt = data.refresh_token;
         const at = data.access_token;
@@ -45,7 +43,7 @@ export class UserService {
       'Content-Type': 'application/json'
     });
     // @ts-ignore
-    return this.http.post<any>(registrationApiPrefix, user, {headers, responseType: 'text'});
+    return this.http.post<any>(environment.apiUrl + "registration/register", user, {headers, responseType: 'text'});
   }
 
   refreshTokens() {
@@ -59,7 +57,7 @@ export class UserService {
 
     console.log("refreshing tokens");
 
-    return this.http.get<any>(authApiPrefix + "/refresh_token", {headers})
+    return this.http.get<any>(environment.apiUrl + "auth/refresh_token", {headers})
       .pipe(map(
         data => {
           const rt = data.refresh_token;

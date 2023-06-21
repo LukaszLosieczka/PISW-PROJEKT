@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Ticket} from "../model/ticket";
+import {environment} from "../../../environments/environment";
 
-const ticketsApiPrefix = 'http://localhost:8080/tickets/available_tickets';
+const ticketsApiPrefix = `${environment.apiUrl}tickets/available_tickets`;
 
 @Injectable({
   providedIn: 'root'
