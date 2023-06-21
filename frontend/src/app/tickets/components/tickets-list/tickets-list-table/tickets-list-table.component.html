@@ -15,8 +15,8 @@
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
     <td> {{(ticket.price).toFixed(2)}} zł</td>
-    <ng-container *ngIf="userService.isLoggedIn; else login">
-      <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    <ng-container *ngIf="isLoggedIn(); else login">
+      <td class="text-center"> <a *ngIf="isUser()" routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
     </ng-container>
     <ng-template #login>
       <td class="text-center"> <a routerLink="/login" class="btn btn-primary">Kup bilet</a></td>
@@ -29,8 +29,8 @@
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
     <td> {{(ticket.price).toFixed(2)}} zł</td>
-    <ng-container *ngIf="userService.isLoggedIn; else login">
-      <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    <ng-container *ngIf="isLoggedIn(); else login">
+      <td class="text-center"> <a *ngIf="isUser()"  routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
     </ng-container>
     <ng-template #login>
       <td class="text-center"> <a routerLink="/login" class="btn btn-primary">Kup bilet</a></td>
@@ -43,8 +43,8 @@
     <td> {{ticket.name}}</td>
     <td> {{ticket.description}}</td>
     <td> {{(ticket.price).toFixed(2)}} zł</td>
-    <ng-container *ngIf="userService.isLoggedIn; else login">
-    <td class="text-center"> <a routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
+    <ng-container *ngIf="isLoggedIn(); else login">
+    <td class="text-center"> <a *ngIf="isUser()"  routerLink="/tickets/{{ticket.id}}" class="btn btn-primary">Kup bilet</a></td>
     </ng-container>
     <ng-template #login>
     <td class="text-center"> <a routerLink="/login" class="btn btn-primary">Kup bilet</a></td>

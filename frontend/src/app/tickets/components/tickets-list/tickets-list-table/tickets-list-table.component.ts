@@ -12,7 +12,7 @@ export class TicketsListTableComponent {
 
   @Input() tickets: Ticket[] = []
 
-  constructor(public userService: UserService) {}
+  constructor(private userService: UserService) {}
 
   getSingleTickets(): Ticket[] {
     return this.tickets.filter(t => t.ticketType === TicketType.Single);
@@ -24,6 +24,14 @@ export class TicketsListTableComponent {
 
   getTimeTickets(): Ticket[] {
     return this.tickets.filter(t => t.ticketType === TicketType.Time);
+  }
+
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn;
+  }
+
+  isUser(): boolean {
+    return this.userService.getUserRole() === "ROLE_USER";
   }
 
 }
