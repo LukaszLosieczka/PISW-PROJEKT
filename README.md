@@ -1,4 +1,4 @@
-# Projekt i implementacja syatemów webowych
+# Projekt i implementacja systemów webowych
 ## Elektroniczny bilet miejski
 ### Autorzy:
 - Patrycja Kałużna (252864)
